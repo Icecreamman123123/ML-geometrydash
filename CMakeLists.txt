@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.27)
 
-# 1. Force CMake to bypass legacy dependency rules
+# 1. SET ALL OVERRIDES FIRST (Before fetching anything)
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
-
-# 2. Tell the compiler to use nightly/pre-built loader binaries (Fixes the missing loader link error)
 set(GEODE_LINK_NIGHTLY ON)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
+# 2. NOW FETCH GEODE (It will see the variables we set above!)
 include(FetchContent)
 
 FetchContent_Declare(
@@ -17,6 +16,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Geode)
 
+# 3. BUILD THE MOD
 add_geode_mod(
     ID daniedy.gd_ai_bot
     NAME "GD Genetic AI Bot"
