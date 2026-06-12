@@ -2,11 +2,8 @@ cmake_minimum_required(VERSION 3.27)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
-# Force CMake to look exactly where the GitHub Action is cloning the Geode SDK
-set(Geode_DIR "${CMAKE_CURRENT_SOURCE_DIR}/geode-sdk-clone")
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/geode-sdk-clone")
-
-find_package(Geode REQUIRED)
+# Force CMake to load Geode's configuration directly from the cloud clone directory
+include("${CMAKE_CURRENT_SOURCE_DIR}/geode-sdk-clone/loader/CMakeLists.txt")
 
 add_geode_mod(
     ID daniedy.gd_ai_bot
