@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
-# Include the exact file path handed over by our GitHub action builder
-include(${GEODE_MOD_INCLUDE_FILE})
+find_package(Geode REQUIRED)
 
 add_geode_mod(
     ID daniedy.gd_ai_bot
