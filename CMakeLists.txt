@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
