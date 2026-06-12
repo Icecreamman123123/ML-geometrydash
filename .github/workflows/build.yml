@@ -9,33 +9,29 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # 1. Install Ninja to handle the rapid compiling steps
-    - name: Set up Ninja
-      uses: aszymanik/setup-ninja@v1
-
-    # 2. Grab the native Geode CLI executable directly from GitHub releases
+    # 1. Download and extract the official Geode CLI manually
     - name: Download Geode CLI
       run: |
         curl -L https://github.com/geode-sdk/cli/releases/latest/download/geode-cli-v3.7.4-win.zip -o geode-cli.zip
         expand-archive geode-cli.zip -destinationpath .
         echo "${{ github.workspace }}" >> $GITHUB_PATH
 
-    # 3. Manually initialize the profile and fetch SDK files to a concrete folder path
+    # 2. Force install the real SDK and binaries into the local profile directory
     - name: Setup Geode SDK
       run: |
         ./geode.exe sdk install
         ./geode.exe sdk install-binaries
         echo "GEODE_SDK=C:\Users\runneradmin\AppData\Local\Geode\sdk" >> $GITHUB_ENV
 
-    # 4. Fire standard CMake compilation, passing the macro path directly into your CMake variable
+    # 3. Compile using raw MSBuild (Visual Studio) instead of Ninja
     - name: Compile Mod File
       run: |
-        cmake -B build -G "Ninja" -DCMAKE_BUILD_TYPE=Release -DGEODE_MOD_INCLUDE_FILE="C:\Users\runneradmin\AppData\Local\Geode\sdk\share\geode\cmake\GeodeMod.cmake"
+        cmake -B build -DCMAKE_BUILD_TYPE=Release -DGEODE_MOD_INCLUDE_FILE="C:\Users\runneradmin\AppData\Local\Geode\sdk\share\geode\cmake\GeodeMod.cmake"
         cmake --build build --config Release
 
-    # 5. Package the freshly created binary so you can download it from your run summary page
+    # 4. Upload the finished .geode file for you to download
     - name: Upload Mod Artifact
       uses: actions/upload-artifact@v4
       with:
         name: my-bot-mod
-        path: build/*.geode
+        path: build/Release/*.geode
