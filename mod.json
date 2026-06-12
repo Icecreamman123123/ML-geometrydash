@@ -1,0 +1,15 @@
+{
+	"geode": "3.0.0-beta.1",
+	"id": "daniedy.gd_ai_bot",
+	"version": "1.0.0",
+	"name": "GD Genetic AI Bot",
+	"developer": "Daniel",
+	"description": "An in-game genetic algorithm bot that learns to beat levels.",
+	"dependencies": [
+		{
+			"id": "geode.loader",
+			"version": ">=3.0.0-beta.1",
+			"importance": "required"
+		}
+	]
+}
