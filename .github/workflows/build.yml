@@ -17,11 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Geode SDK
-      uses: geode-sdk/setup-geode@main
-      with:
-        version: v3.0.0-beta.1
-
     - name: Build Mod
       uses: geode-sdk/build-geode-mod@main
       with:
