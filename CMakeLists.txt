@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.27)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
-# This automatically handles the SDK paths provided by the GitHub Action
+# Tell CMake exactly where the GitHub Action installs the SDK files
+list(APPEND CMAKE_PREFIX_PATH "C:/Users/runneradmin/AppData/Local/Geode/sdk")
+
 find_package(Geode REQUIRED)
 
 add_geode_mod(
