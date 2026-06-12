@@ -16,14 +16,15 @@ jobs:
         expand-archive geode-cli.zip -destinationpath .
         echo "${{ github.workspace }}" >> $GITHUB_PATH
 
-    # 2. Force install the real SDK and binaries into the local profile directory
+    # 2. Initialize a default profile configuration, then install the SDK and binaries
     - name: Setup Geode SDK
       run: |
+        ./geode.exe profile new GithubActions
         ./geode.exe sdk install
         ./geode.exe sdk install-binaries
         echo "GEODE_SDK=C:\Users\runneradmin\AppData\Local\Geode\sdk" >> $GITHUB_ENV
 
-    # 3. Compile using raw MSBuild (Visual Studio) instead of Ninja
+    # 3. Compile using raw MSBuild (Visual Studio)
     - name: Compile Mod File
       run: |
         cmake -B build -DCMAKE_BUILD_TYPE=Release -DGEODE_MOD_INCLUDE_FILE="C:\Users\runneradmin\AppData\Local\Geode\sdk\share\geode\cmake\GeodeMod.cmake"
