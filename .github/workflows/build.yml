@@ -17,13 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Force the runner to register the exact folders where Geode lives before compiling
-    - name: Inject Geode Environment Paths
-      run: |
-        echo "GEODE_SDK=C:\Users\runneradmin\AppData\Local\Geode\sdk" >> $GITHUB_ENV
-        echo "Geode_DIR=C:\Users\runneradmin\AppData\Local\Geode\sdk" >> $GITHUB_ENV
-      shell: bash
-
     - name: Build Mod
       uses: geode-sdk/build-geode-mod@main
       id: build
