@@ -1,5 +1,5 @@
 {
-	"geode": "3.0.0-beta.1",
+	"geode": "3.0.0",
 	"id": "daniedy.gd_ai_bot",
 	"version": "1.0.0",
 	"name": "GD Genetic AI Bot",
@@ -8,7 +8,7 @@
 	"dependencies": [
 		{
 			"id": "geode.loader",
-			"version": ">=3.0.0-beta.1",
+			"version": ">=3.0.0",
 			"importance": "required"
 		}
 	]
