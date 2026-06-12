@@ -1,18 +1,9 @@
 cmake_minimum_required(VERSION 3.27)
 
-set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
-set(GEODE_LINK_NIGHTLY ON)
-
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
-include(FetchContent)
-
-FetchContent_Declare(
-    Geode
-    GIT_REPOSITORY https://github.com/geode-sdk/geode.git
-    GIT_TAG v3.0.0-beta.1
-)
-FetchContent_MakeAvailable(Geode)
+# This automatically handles the SDK paths provided by the GitHub Action
+find_package(Geode REQUIRED)
 
 add_geode_mod(
     ID daniedy.gd_ai_bot
