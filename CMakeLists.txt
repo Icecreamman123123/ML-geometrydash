@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.27)
 
-# FORCE CMAKE TO OVERRIDE ANCIENT POLICY ERRORS FROM DEPENDENCIES
+# 1. Force CMake to bypass legacy dependency rules
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+
+# 2. Tell the compiler to use nightly/pre-built loader binaries (Fixes the missing loader link error)
+set(GEODE_LINK_NIGHTLY ON)
 
 project(GDAIBot VERSION 1.0.0 LANGUAGES CXX)
 
