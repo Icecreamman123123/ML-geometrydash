@@ -4,31 +4,19 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
 
     steps:
     - uses: actions/checkout@v4
 
-    # 1. Download and set up the official Geode CLI manually
-    - name: Set up Geode CLI
-      uses: geode-sdk/setup-geode@main
-
-    # 2. Force install the exact SDK and binaries to a known path
-    - name: Install Geode SDK
-      run: |
-        geode sdk install
-        geode sdk install-binaries
-
-    # 3. Compile the mod using clean, manual CMake commands
-    - name: Configure CMake
-      run: cmake -B build -DGEODE_MOD_INCLUDE_FILE="${{ env.GEODE_SDK }}/share/geode/cmake/GeodeMod.cmake"
-
-    - name: Build Mod File
-      run: cmake --build build --config Release
-
-    # 4. Upload the finished .geode file so you can grab it
-    - name: Upload Mod Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-bot-mod
-        path: build/*.geode
+    - name: Build Mod
+      uses: geode-sdk/build-geode-mod@main
+      id: build
